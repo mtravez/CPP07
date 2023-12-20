@@ -1,84 +1,66 @@
-//#include "iter.hpp"
-//#include <iostream>
-//
-////void	add(int &i)
-////{
-////	i += 2;
-////}
-//
-//template <typename T>
-//void	add(T &i)
-//{
-//	i += 2;
-//}
-//
-//int main( void ) {
-//	int length = 6;
-//
-//	//---------INT ARRAY------------
-//
-//	int i_array[length];
-//
-//	for (int x = 0; x < length; x++)
-//		i_array[x] = 9;
-//
-//	iter(i_array, length, add<int>);
-//
-//	for (int x = 0; x < length; x++)
-//		std::cout << " " << i_array[x];
-//	std::cout << std::endl;
-//
-//	//---------CHAR ARRAY------------
-//
-//	char c_array[length];
-//
-//	for (int x = 0; x < length; x++)
-//		c_array[x] = 'a';
-//
-//	iter(c_array, length, add<char>);
-//
-//	for (int x = 0; x < length; x++)
-//		std::cout << " " << c_array[x];
-//	std::cout << std::endl;
-//
-//	//---------DOUBLE ARRAY------------
-//
-//	double d_array[length];
-//
-//	for (int x = 0; x < length; x++)
-//		d_array[x] = 1.2;
-//
-//	iter(d_array, length, add<double>);
-//
-//	for (int x = 0; x < length; x++)
-//		std::cout << " " << d_array[x];
-//	std::cout << std::endl;
-//}
-
-
 #include "iter.hpp"
 #include <iostream>
 
-class Awesome
+template <typename T>
+void	add(T &i)
 {
-public:
-	Awesome( void ) : _n( 42 ) { return; }
-	int get( void ) const { return this->_n; }
-private:
-	int _n;
-};
+	i += 2;
+}
 
-std::ostream & operator<<( std::ostream & o, Awesome const & rhs ) { o << rhs.get(); return o; }
+int main( void ) {
+	int length = 6;
 
-template< typename T >
-void print( T const & x ) { std::cout << x << std::endl; return; }
+	//---------INT ARRAY------------
 
-int main() {
-	int tab[] = { 0, 1, 2, 3, 4 };  // <--- I never understood why you can't write int[] tab. Wouldn't that make more sense?
-	Awesome tab2[5];
+	int i_array[length];
 
-	iter( tab, 5, print<int> );
-	iter( tab2, 5, print<Awesome> );
+	for (int x = 0; x < length; x++)
+		i_array[x] = 9 + x;
 
-	return 0;
+	std::cout << "Before iter: ";
+	for (int x = 0; x < length; x++)
+		std::cout << " " << i_array[x];
+
+	iter(i_array, length, add<int>);
+
+	std::cout << "\nAfter iter: ";
+	for (int x = 0; x < length; x++)
+		std::cout << " " << i_array[x];
+	std::cout << std::endl;
+
+	//---------CHAR ARRAY------------
+
+	char c_array[length];
+
+	for (int x = 0; x < length; x++)
+		c_array[x] = 'a' + x;
+
+	std::cout << "\nBefore iter: ";
+	for (int x = 0; x < length; x++)
+		std::cout << " " << c_array[x];
+
+	iter(c_array, length, add<char>);
+
+	std::cout << "\nAfter iter: ";
+	for (int x = 0; x < length; x++)
+		std::cout << " " << c_array[x];
+	std::cout << std::endl;
+
+	//---------DOUBLE ARRAY------------
+
+	double d_array[length];
+
+	for (int x = 0; x < length; x++)
+		d_array[x] = 1.2 + x;
+
+	std::cout << "\nBefore iter: ";
+	for (int x = 0; x < length; x++)
+		std::cout << " " << d_array[x];
+
+	iter(d_array, length, add<double>);
+
+	std::cout << "\nAfter iter: ";
+	for (int x = 0; x < length; x++)
+		std::cout << " " << d_array[x];
+	std::cout << std::endl;
 }
